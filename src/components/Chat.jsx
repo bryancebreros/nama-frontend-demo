@@ -18,7 +18,7 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-    console.log("hiiii")
+
     const data = {
       question: inputText,
       documentation: '1'
@@ -59,10 +59,11 @@ const Chat = () => {
             {messageList.map((message) => (
               <>
                 <div className="text-stone-50 flex justify-center my-4">{message.question}</div>
-                {loading ? <Loader /> : <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">{message.answer}</div>}
+                <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">{message.answer}</div>
               </>
             ))}
-          
+            {loading && <Loader />}
+
           
         </div>
       </div>
