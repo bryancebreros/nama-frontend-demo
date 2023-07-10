@@ -1,14 +1,13 @@
 import { useState, useRef, useEffect } from "react"
-
+import axios from "axios";
 // TODO fix styles, add mqs and finish functionality 
 function Chat() {
   const [messageList, setMessageList] = useState([])
-  const [inputText,setInputText] = useState('')
+  const [inputText, setInputText] = useState('')
 
   const bottomElementRef = useRef(null);
 
   useEffect(() => {
-    // Scroll to the bottom on component mount
     bottomElementRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messageList]);
 
@@ -17,36 +16,56 @@ function Chat() {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    setMessageList([...messageList, {question: inputText, answer: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'}])
-    console.log('Submitted text:', inputText)
+    const data = {
+      question: inputText,
+      documentation: '1'
+    };
+    console.log('h0000')
+
+    axios.post('http://127.0.0.1:5000/question', data)
+      .then(response => {
+        console.log('hiii')
+        const data = response.data
+        setMessageList([...messageList, {question: data.question, answer: data.response}])
+        console.log('Submitted text:', inputText)
+        console.log(response.data);
+      })
+      .catch(error => {
+        // Handle error
+        console.error(error);
+      });
     setInputText('')
-    console.log('ml', messageList);
+    console.log('ml', messageList)
+  };
+    
+    
 
-  }
+  
 
-  const buttonClass = inputText ? 'bg-blue-500 text-white py-2 px-4 rounded-r-lg' : 'bg-gray-500 text-white py-2 px-4 rounded-r-lg';
+  const buttonClass = inputText ? 'bg-blue-500 text-white py-2 px-4 rounded-r-lg' : 'bg-gray-500 text-white py-2 px-4 rounded-r-lg'
+  
+
   return (
     
     <div className="flex flex-col justify-between h-screen">
-      <div class="xl:mx-64 ">
+      <div className="xl:mx-64 ">
       {/* TODO check if this is best practice  */}
-        <div class=" p-8">
-          <div class="bg-blue-500 text-white py-4 px-6 rounded-md my-2">Hi, how can I help you?</div>
+        <div className=" p-8">
+          <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">Hi, how can I help you?</div>
           {messageList.map((message) => (
             <>
-              <div class="text-stone-50 flex justify-center my-4">{message.question}</div>
-              <div class="bg-blue-500 text-white py-4 px-6 rounded-md my-2">{message.answer}</div>
+              <div className="text-stone-50 flex justify-center my-4">{message.question}</div>
+              <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">{message.answer}</div>
             </>
           ))}
           
         </div>
       </div>
-      
       <div className="xl:mx-32  pb-8">
       <form ref={bottomElementRef} onSubmit={handleSubmit}>
-        <div class="flex">
-          <input placeholder='Enter your question'  type="text" value={inputText} onChange={handleChange} class="resize-none w-full p-2 pl-4 border border-gray-300 rounded-l-lg"></input>
-          <button class={buttonClass} type="submit" disabled={!inputText}>Send</button>
+        <div className="flex">
+          <input placeholder='Enter your question'  type="text" value={inputText} onChange={handleChange} className="resize-none w-full p-2 pl-4 border border-gray-300 rounded-l-lg"></input>
+          <button className={buttonClass} type="submit" disabled={!inputText}>Send</button>
         </div>
       </form>
       </div>

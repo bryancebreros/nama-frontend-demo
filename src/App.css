@@ -11,3 +11,30 @@ input:focus,
 select:focus {
   outline: none;
 }
+
+.manager { 
+  background-color: #16213C;
+}
+.custom-file-input {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.custom-file-label {
+  cursor: pointer;
+  margin-left: 24px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  background-color: #fff;
+}
+
+.custom-file-input:focus + .custom-file-label {
+  outline: dotted;
+}
+
+.custom-file-input:active + .custom-file-label {
+  outline: dotted;
+}
