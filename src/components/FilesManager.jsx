@@ -8,17 +8,14 @@ const FilesManager = () => {
     const [newFiles, setNewFiles] = useState(null)
     const [isHovered, setIsHovered] = useState(null)
     const [refresh, setRefresh] = useState(false)
-    //GET
     useEffect(() => {
         
         axios.get('http://127.0.0.1:5000/files')
             .then(response => {
-            // Handle success
             console.log(response.data);
             setFiles(response.data.files)
             })
             .catch(error => {
-            // Handle error
             console.error(error);
             });
           
@@ -31,7 +28,6 @@ const FilesManager = () => {
       const handleMouseLeave = () => {
         setIsHovered(null);
       };
-    //POST
     const handleFileChange = (e) => {
         const filesToUpload = e.target.files
         const pdfFiles = Array.from(filesToUpload).filter(
@@ -40,7 +36,6 @@ const FilesManager = () => {
         console.log(pdfFiles);
         setNewFiles(pdfFiles);
       };
-    //POST
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData()
@@ -63,7 +58,6 @@ const FilesManager = () => {
         }
     }
 
-    //DELETE
     const handleClick = (file) => {
         const requestBody = { files: [file] }
         

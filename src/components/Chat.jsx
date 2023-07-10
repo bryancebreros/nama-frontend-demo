@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import axios from "axios";
 import Loader from "./Loader"
-// TODO fix styles, add mqs and finish functionality 
 const Chat = () => {
   const [messageList, setMessageList] = useState([])
   const [inputText, setInputText] = useState('')
@@ -19,12 +18,11 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-
+    console.log("hiiii")
     const data = {
       question: inputText,
       documentation: '1'
     };
-    console.log('h0000')
 
     axios.post('http://127.0.0.1:5000/question', data)
       .then(response => {
@@ -35,12 +33,11 @@ const Chat = () => {
         console.log(response.data);
       })
       .catch(error => {
-        // Handle error
         console.error(error)
       })
       .finally(() => {
         setLoading(false)
-      });
+      })
     setInputText('')
     console.log('ml', messageList)
   };
@@ -56,7 +53,6 @@ const Chat = () => {
     
     <div className="flex flex-col justify-between h-screen">
       <div className="xl:mx-64 ">
-      {/* TODO check if this is best practice  */}
         <div className=" p-8">
           <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">Hi, how can I help you?</div>
           
