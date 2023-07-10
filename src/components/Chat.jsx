@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from "react"
 import axios from "axios";
+import Loader from "./Loader"
 // TODO fix styles, add mqs and finish functionality 
-function Chat() {
+const Chat = () => {
   const [messageList, setMessageList] = useState([])
   const [inputText, setInputText] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const bottomElementRef = useRef(null);
 
@@ -16,6 +18,8 @@ function Chat() {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
+    setLoading(true)
+
     const data = {
       question: inputText,
       documentation: '1'
@@ -32,7 +36,10 @@ function Chat() {
       })
       .catch(error => {
         // Handle error
-        console.error(error);
+        console.error(error)
+      })
+      .finally(() => {
+        setLoading(false)
       });
     setInputText('')
     console.log('ml', messageList)
@@ -52,12 +59,14 @@ function Chat() {
       {/* TODO check if this is best practice  */}
         <div className=" p-8">
           <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">Hi, how can I help you?</div>
-          {messageList.map((message) => (
-            <>
-              <div className="text-stone-50 flex justify-center my-4">{message.question}</div>
-              <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">{message.answer}</div>
-            </>
-          ))}
+          
+            {messageList.map((message) => (
+              <>
+                <div className="text-stone-50 flex justify-center my-4">{message.question}</div>
+                {loading ? <Loader /> : <div className="bg-blue-500 text-white py-4 px-6 rounded-md my-2">{message.answer}</div>}
+              </>
+            ))}
+          
           
         </div>
       </div>

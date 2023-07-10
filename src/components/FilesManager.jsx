@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import DeleteIcon from "./misc/icons/DeleteIcon"
 import PdfIcon from "./misc/icons/PdfIcon"
 import Swal from "sweetalert2"
-function FilesManager() {
+const FilesManager = () => {
     const [files, setFiles] = useState([])
     const [newFiles, setNewFiles] = useState(null)
     const [isHovered, setIsHovered] = useState(null)
