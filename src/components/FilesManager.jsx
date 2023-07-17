@@ -98,7 +98,7 @@ const FilesManager = () => {
     
     const btnClass = newFiles? 'm-6 px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600' : 'm-6 px-4 opacity-50 py-2 bg-gray-400 text-gray-600 font-semibold rounded'
     return (
-    <ul className="fixed container mx-32 top-0 rounded-md h-screen  overflow-y-auto manager">
+    <ul className="fixed  w-10/12 mx-32 justify-center items-center top-0 rounded-md h-screen overflow-y-auto manager">
         {files?.map((file) => (
             <div className="flex items-center ml-3" key={file} >
                 <PdfIcon />
