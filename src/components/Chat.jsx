@@ -18,12 +18,11 @@ const Chat = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setLoading(true)
-
+    console.log({inputText})
     const data = {
       question: inputText,
       documentation: '1'
     };
-
     axios.post('http://127.0.0.1:5000/question', data)
       .then(response => {
         console.log('hiii')

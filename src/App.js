@@ -7,16 +7,17 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const modalRef = useRef(null);
 
-  const handleClickOutside = (event) => {
+  const handleCloseModal = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       setIsOpen(false);
     }
-  };
+    
+  }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('mousedown', handleCloseModal);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('mousedown', handleCloseModal);
     };
   }, []);
   return (
@@ -25,7 +26,7 @@ function App() {
         <h2 className="xl:fixed text-3xl text-slate-50 font-bold mb-4">NAMA</h2>
         <h3 className="xl:fixed text-xl text-slate-50 font-bold mb-4 right-6 hover:cursor-pointer" onClick={() => {setIsOpen(true)}}>Files</h3>
         <div ref={modalRef}>
-          {isOpen && <FilesManager />}
+          {isOpen && <FilesManager handleCloseModal={handleCloseModal}/>}
         </div>
         <Chat  />
 
